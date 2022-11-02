@@ -368,9 +368,13 @@ function! s:toc.set_syntax() abort dict "{{{1
   endif
 
   execute 'syntax match VimtexTocTodo'
-        \ '/\v\zs%('
-        \   . toupper(join(keys(g:vimtex_toc_todo_labels), '|')) . '):\ze /'
+        \ '"\v\zs%('
+        \   . toupper(join(keys(g:vimtex_toc_todo_labels), '|')) . '):\ze "'
         \ 'contained'
+  syntax match VimtexTocTodo "\v\zs%(an)?fxnote:\ze " contained
+  syntax match VimtexTocWarning "\v\zs%(an)?fxwarning:\ze " contained
+  syntax match VimtexTocError "\v\zs%(an)?fxerror:\ze " contained
+  syntax match VimtexTocFatal "\v\zs%(an)?fxfatal:\ze " contained
 
   syntax match VimtexTocInclPath /.*/ contained
   syntax match VimtexTocIncl /\w\+ incl:/ contained
@@ -383,6 +387,9 @@ function! s:toc.set_syntax() abort dict "{{{1
 
   syntax cluster VimtexTocTitleStuff add=VimtexTocIncl
   syntax cluster VimtexTocTitleStuff add=VimtexTocTodo
+  syntax cluster VimtexTocTitleStuff add=VimtexTocWarning
+  syntax cluster VimtexTocTitleStuff add=VimtexTocError
+  syntax cluster VimtexTocTitleStuff add=VimtexTocFatal
   syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsSecs
   syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsEq
   syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsFig
